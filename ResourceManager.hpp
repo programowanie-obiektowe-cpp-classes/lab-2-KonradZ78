@@ -3,56 +3,42 @@
 #include "Resource.hpp"
 #include <iostream>
 
-class Resource {
-public:
-    Resource() {
-        // konstruktor domyślny
-    }
-
-    double get() {
-        return 6.2; // przykładowa wartość
-    }
-};
-
 class ResourceManager {
 private:
-    Resource* res; // właściciel obiektu typu Resource
+    Resource resource; // Właściciel obiektu typu Resource
 
 public:
-    ResourceManager() : res(new Resource()) {
-        // konstruktor domyślny
+    ResourceManager() : resource() {
+        // Konstruktor domyślny
     }
 
-    ResourceManager(const ResourceManager& other) : res(new Resource(*(other.res))) {
-        // konstruktor kopiujący
+    
+    ResourceManager(const ResourceManager& other) : resource(other.resource) {
     }
 
+    
     ResourceManager& operator=(const ResourceManager& other) {
         if (this != &other) {
-            delete res;
-            res = new Resource(*(other.res));
+            resource = other.resource;
         }
         return *this;
     }
 
-    ResourceManager(ResourceManager&& other) noexcept : res(other.res) {
-        other.res = nullptr;
+    ResourceManager(ResourceManager&& other) noexcept : resource(std::move(other.resource)) {
     }
 
     ResourceManager& operator=(ResourceManager&& other) noexcept {
         if (this != &other) {
-            delete res;
-            res = other.res;
-            other.res = nullptr;
+            resource = std::move(other.resource);
         }
         return *this;
     }
 
-    double get() {
-        return res->get();
+    ~ResourceManager() {
+        // Implementacja destruktora
     }
 
-    ~ResourceManager() {
-        delete res; 
+    double get() {
+        return resource.get(); // Zwraca wynik wywołania metody get obiektu, którym zarządza
     }
 };
