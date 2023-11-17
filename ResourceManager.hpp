@@ -46,7 +46,7 @@ public:
 
     double get() const
     {
-        return resourceCopy->get(); // Wywołanie get() na kopii
+        return resource->get(); // Wywołanie get() na kopii
     }
 
 private:
