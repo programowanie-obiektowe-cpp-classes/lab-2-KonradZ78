@@ -6,10 +6,39 @@
 class ResourceManager
 {
 public:
+    // Default constructor
     ResourceManager() : resource() {}
 
-    double get() { return resource.get(); }
+    // Destructor
+    ~ResourceManager() = default;
+
+    // Copy constructor
+    ResourceManager(const ResourceManager &other) : resource(other.resource) {}
+
+    ResourceManager &operator=(const ResourceManager &other)
+    {
+        if (this != &other)
+        {
+            resource = other.resource;
+        }
+        return *this;
+    }
+
+    // Move constructor
+    ResourceManager(ResourceManager &&other) noexcept : resource(std::move(other.resource)) {}
+
+    // Move assignment operator
+    ResourceManager &operator=(ResourceManager &&other) noexcept
+    {
+        if (this != &other)
+        {
+            resource = std::move(other.resource);
+        }
+        return *this;
+    }
+
+    double get() const { return resource.get(); }
 
 private:
-    Resource resource;
+    Resource resource; // Owned resource
 };
