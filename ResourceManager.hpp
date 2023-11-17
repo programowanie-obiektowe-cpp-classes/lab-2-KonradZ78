@@ -37,7 +37,11 @@ public:
         return *this;
     }
 
-    double get() const { return const_cast<const Resource&>(resource).get(); }
+    double get() const
+    {
+        Resource resourceCopy = resource;
+        return resourceCopy.get();
+    }
 
 
 private:
