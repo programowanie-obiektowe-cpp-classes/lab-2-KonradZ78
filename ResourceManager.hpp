@@ -15,35 +15,37 @@ public:
     };
 
     // Copy constructor
-    ResourceManager(const ResourceManager& other) : resource(other.resource) {}
+    ResourceManager(const ResourceManager& other) : (new Resource(*other.resource)) {};
 
     ResourceManager& operator=(const ResourceManager& other)
     {
         if (this != &other)
         {
             delete resource;
-            resource = other.resource;
-            other.resource=nullptr;
+            resource=new Resource(*other.resource);
         }
         return *this;
     }
 
     // Move constructor
-    ResourceManager(ResourceManager&& other) noexcept : resource(std::move(other.resource)) {}
+    ResourceManager(ResourceManager&& other): resource(other.resource) {
+        other.resource=nullptr;
+    };
 
     // Move assignment operator
-    ResourceManager& operator=(ResourceManager&& other) noexcept
+    ResourceManager& operator=(ResourceManager&& other) 
     {
         if (this != &other)
         {
-            resource = std::move(other.resource);
+            delete resource;
+            resource=other.resource;
+            other.resource=nullptr;
         }
         return *this;
     }
 
     double get() const
     {
-        Resource resourceCopy = resource; // Tworzenie kopii zasobu
         return resourceCopy->get(); // Wywołanie get() na kopii
     }
 
