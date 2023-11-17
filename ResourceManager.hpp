@@ -39,22 +39,8 @@ public:
 
     double get() const
     {
-        try
-        {
-            return resource.get();
-        }
-        catch (const std::exception& e)
-        {
-            // Obsługa błędu lub wyświetlenie informacji o błędzie
-            std::cerr << "Error in ResourceManager::get(): " << e.what() << std::endl;
-            return 0.0; // Lub inna wartość domyślna
-        }
-        catch (...)
-        {
-            // Obsługa innych błędów
-            std::cerr << "Unknown error in ResourceManager::get()" << std::endl;
-            return 0.0; // Lub inna wartość domyślna
-        }
+        Resource resourceCopy = resource; // Tworzenie kopii zasobu
+        return resourceCopy.get(); // Wywołanie get() na kopii
     }
 
 private:
