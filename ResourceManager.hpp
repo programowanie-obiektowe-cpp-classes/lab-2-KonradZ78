@@ -7,28 +7,32 @@ class ResourceManager
 {
 public:
     // Default constructor
-    ResourceManager() : resource() {}
+    ResourceManager() : resource(new Resource()) {}
 
     // Destructor
-    ~ResourceManager() = default;
+    ~ResourceManager(){
+        delete resource;
+    };
 
     // Copy constructor
-    ResourceManager(const ResourceManager &other) : resource(other.resource) {}
+    ResourceManager(const ResourceManager& other) : resource(other.resource) {}
 
-    ResourceManager &operator=(const ResourceManager &other)
+    ResourceManager& operator=(const ResourceManager& other)
     {
         if (this != &other)
         {
+            delete resource;
             resource = other.resource;
+            other.resource=nullptr;
         }
         return *this;
     }
 
     // Move constructor
-    ResourceManager(ResourceManager &&other) noexcept : resource(std::move(other.resource)) {}
+    ResourceManager(ResourceManager&& other) noexcept : resource(std::move(other.resource)) {}
 
     // Move assignment operator
-    ResourceManager &operator=(ResourceManager &&other) noexcept
+    ResourceManager& operator=(ResourceManager&& other) noexcept
     {
         if (this != &other)
         {
