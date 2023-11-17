@@ -15,7 +15,7 @@ public:
     };
 
     // Copy constructor
-    ResourceManager(const ResourceManager& other) : (new Resource(*other.resource)) {};
+    ResourceManager(const ResourceManager& other) : resource(new Resource(*other.resource)) {};
 
     ResourceManager& operator=(const ResourceManager& other)
     {
