@@ -37,7 +37,8 @@ public:
         return *this;
     }
 
-    double get() const { return resource.get(); }
+    double get() const { return const_cast<const Resource&>(resource).get(); }
+
 
 private:
     Resource resource; // Owned resource
