@@ -40,9 +40,9 @@ public:
     double get() const
     {
         Resource resourceCopy = resource; // Tworzenie kopii zasobu
-        return resourceCopy.get(); // Wywołanie get() na kopii
+        return resourceCopy->get(); // Wywołanie get() na kopii
     }
 
 private:
-    Resource resource; // Owned resource
+    Resource* resource; // Owned resource
 };
